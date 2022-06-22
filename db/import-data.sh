@@ -1,3 +1,5 @@
+ #!/bin/bash 
+
 # Found here:
 # https://dotnetthoughts.net/initialize-mssql-in-docker-container/
 for i in {1..50};
