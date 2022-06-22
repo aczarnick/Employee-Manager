@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  mssql:
+    build: ./db/
+
+    ports: 
+      - 1433:1433
+      
+    hostname: localhost
+
+  aspnetmvc:
+    build: ./src/EmployeeManager/
+
+    ports: 
+      - '80:80'
