@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "iEJdlUH7yJpk+SMCgQvALFc/pcnU3NGE1LFbrYgLLqns4SrfrieHbhwhSPcw3LOLLlgRExN2rYgJKfUBd0e6aQ==",
+  "success": true,
+  "projectFilePath": "C:\\aczarnick\\source\\Employee-Manager\\src\\EmployeeManager\\EmployeeManager.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\apz20\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.15.1\\microsoft.visualstudio.azure.containers.tools.targets.1.15.1.nupkg.sha512"
+  ],
+  "logs": []
+}
