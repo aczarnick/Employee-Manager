@@ -16,3 +16,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.department-row {
+    border-bottom: solid 1px red;
+}
+
+.profile-group {
+    margin: 1rem;
+}
