@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EmployeeManager.Models
+﻿namespace EmployeeManager.Models
 {
     public partial class SubDepartment
     {
