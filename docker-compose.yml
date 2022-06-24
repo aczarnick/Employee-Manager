@@ -1,7 +1,10 @@
 version: "3.9"
 services:
   mssql:
-    build: ./db/
+    build: 
+      context: ./db
+      args:
+        - MSSQL_PASSWORD=P@ssword123
 
     ports: 
       - 1433:1433
