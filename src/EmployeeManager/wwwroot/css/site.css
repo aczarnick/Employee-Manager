@@ -1,26 +1,16 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
 .department-row {
     border-bottom: solid 1px red;
 }
 
 .profile-group {
-    margin: 1rem;
+    padding: 1rem;
+}
+
+.profile {
+    padding: 1rem;
+}
+
+.profile-pic {
+    width: 15rem;
+    height: 15rem;
 }
