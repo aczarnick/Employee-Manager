@@ -54,14 +54,16 @@ namespace EmployeeManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeId,SubDepartmentId,FirstName,LastName,Bio,ProfileImage,FbprofileLink,TwitterProfileLink,AddedDate,UpdatedDate,Deleted,DeletedDate")] Employee employee)
         {
+            var updatedEmployee = UpdateAndRevalidateEmployee(employee);
+
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                _context.Add(updatedEmployee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubDepartmentId"] = new SelectList(_context.SubDepartments, "SubDepartmentId", "SubDepartmentId", employee.SubDepartmentId);
-            return View(employee);
+            ViewData["SubDepartmentId"] = new SelectList(_context.SubDepartments, "SubDepartmentId", "SubDepartmentId", updatedEmployee.SubDepartmentId);
+            return View(updatedEmployee);
         }
 
         // GET: Employees/Edit/5
@@ -93,11 +95,13 @@ namespace EmployeeManager.Controllers
                 return NotFound();
             }
 
+            var updatedEmployee = UpdateAndRevalidateEmployee(employee);
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(updatedEmployee);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -113,8 +117,8 @@ namespace EmployeeManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubDepartmentId"] = new SelectList(_context.SubDepartments, "SubDepartmentId", "SubDepartmentId", employee.SubDepartmentId);
-            return View(employee);
+            ViewData["SubDepartmentId"] = new SelectList(_context.SubDepartments, "SubDepartmentId", "SubDepartmentId", updatedEmployee.SubDepartmentId);
+            return View(updatedEmployee);
         }
 
         // GET: Employees/Delete/5
@@ -158,6 +162,17 @@ namespace EmployeeManager.Controllers
         private bool EmployeeExists(int id)
         {
             return (_context.Employees?.Any(e => e.EmployeeId == id)).GetValueOrDefault();
+        }
+
+        private Employee UpdateAndRevalidateEmployee(Employee employee)
+        {
+            employee.SubDepartment = _context.SubDepartments.Single(subDepartment => subDepartment.SubDepartmentId == employee.SubDepartmentId);
+            employee.SubDepartment.Department = _context.Departments.Single(department => department.DepartmentId == employee.SubDepartment.DepartmentId);
+
+            ModelState.Clear();
+            TryValidateModel(employee);
+
+            return employee;
         }
     }
 }
