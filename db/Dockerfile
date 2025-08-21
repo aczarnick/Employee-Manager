@@ -1,22 +1,28 @@
 # Found relevant information from
-# https://dotnetthoughts.net/initialize-mssql-in-docker-container/
 # https://www.softwaredeveloper.blog/initialize-mssql-in-docker-container
 
 FROM mcr.microsoft.com/mssql/server:2019-latest
 
-# needed to execute CHMOD without making a dir. 
-# probably should just mkdir
 USER root
 
-WORKDIR /db
+ARG MSSQL_PASSWORD
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
 EXPOSE 1433
 
-COPY . .
+# Copy initialization scripts
+COPY . /usr/src/app
 
-# adds execution privelage 
-RUN chmod +x entrypoint.sh
+# pass password to container
+ENV SA_PASSWORD=${MSSQL_PASSWORD}
 
-ENV SA_PASSWORD Q@ckingDuck2133
+# accept the end user liscence agreement
 ENV ACCEPT_EULA Y
 
+# adds execution privilege 
+RUN chmod +x /usr/src/app/import-data.sh
+
+USER mssql
 CMD /bin/bash ./entrypoint.sh
